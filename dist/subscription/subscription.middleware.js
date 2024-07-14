@@ -11,23 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubscriptionMiddleware = void 0;
 const common_1 = require("@nestjs/common");
-const subscription_service_1 = require("../subscription/subscription.service");
+const subscription_service_1 = require("./subscription.service");
 let SubscriptionMiddleware = class SubscriptionMiddleware {
     constructor(subscriptionService) {
         this.subscriptionService = subscriptionService;
     }
     async use(req, res, next) {
-        console.log(req.cookies);
-        if (!req.cookies || !req.cookies.subscriptionId) {
-            const host = req.get('host');
-            if (!host) {
-                throw new common_1.BadRequestException('Host not found in request headers');
-            }
+        const host = 'api-beta.almayadeen.net';
+        if (!req.cookies || !req.cookies.subscriptionId || req.cookies.host !== host) {
             const subscriptionId = await this.subscriptionService.findByHost(host);
-            if (subscriptionId.length === 0) {
-                throw new common_1.BadRequestException('Subscription not found for the host');
+            if (!subscriptionId || subscriptionId.length === 0) {
+                return res.status(400).json({ success: false, error: { message: 'Invalid Host' } });
             }
-            res.cookie('subscriptionId', subscriptionId, { httpOnly: true, maxAge: 3600000 });
+            res.cookie('subscriptionId', subscriptionId, { httpOnly: true, maxAge: 300000 });
+            res.cookie('host', host, { httpOnly: true, maxAge: 300000 });
+            req.subscriptionId = subscriptionId;
+        }
+        else {
+            req.subscriptionId = req.cookies.subscriptionId;
         }
         next();
     }

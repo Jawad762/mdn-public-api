@@ -6,21 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubscriptionModule = void 0;
+exports.WidgetModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const subscription_service_1 = require("./subscription.service");
-const subscription_entity_1 = require("./subscription.entity");
-const subscription_controller_1 = require("./subscription.controller");
-let SubscriptionModule = class SubscriptionModule {
+const widget_service_1 = require("./widget.service");
+const widget_entity_1 = require("./widget.entity");
+const widget_controller_1 = require("./widget.controller");
+let WidgetModule = class WidgetModule {
 };
-exports.SubscriptionModule = SubscriptionModule;
-exports.SubscriptionModule = SubscriptionModule = __decorate([
+exports.WidgetModule = WidgetModule;
+exports.WidgetModule = WidgetModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([subscription_entity_1.Subscription])],
-        providers: [subscription_service_1.SubscriptionService],
-        controllers: [subscription_controller_1.SubscriptionsController],
-        exports: [subscription_service_1.SubscriptionService],
+        imports: [typeorm_1.TypeOrmModule.forFeature([widget_entity_1.Widget])],
+        providers: [widget_service_1.WidgetService],
+        controllers: [widget_controller_1.WidgetController],
+        exports: [widget_service_1.WidgetService],
     })
-], SubscriptionModule);
-//# sourceMappingURL=subscription.module.js.map
+], WidgetModule);
+//# sourceMappingURL=widget.module.js.map

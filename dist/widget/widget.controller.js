@@ -12,27 +12,36 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubscriptionsController = void 0;
+exports.WidgetController = void 0;
 const common_1 = require("@nestjs/common");
-const subscription_service_1 = require("./subscription.service");
-let SubscriptionsController = class SubscriptionsController {
-    constructor(subscriptionsService) {
-        this.subscriptionsService = subscriptionsService;
+const widget_service_1 = require("./widget.service");
+let WidgetController = class WidgetController {
+    constructor(widgetService) {
+        this.widgetService = widgetService;
     }
-    async findByHost(host) {
-        return this.subscriptionsService.findByHost(host);
+    async findBySubId(req, response) {
+        try {
+            const subId = req.subscriptionId;
+            const widgets = await this.widgetService.findBySubId(subId);
+            return response.status(200).json({ success: true, data: widgets });
+        }
+        catch (error) {
+            console.error(error);
+            return response.status(500).json({ success: false, error: { message: 'Something went wrong...' } });
+        }
     }
 };
-exports.SubscriptionsController = SubscriptionsController;
+exports.WidgetController = WidgetController;
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('host')),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
-], SubscriptionsController.prototype, "findByHost", null);
-exports.SubscriptionsController = SubscriptionsController = __decorate([
-    (0, common_1.Controller)('subscriptions'),
-    __metadata("design:paramtypes", [subscription_service_1.SubscriptionService])
-], SubscriptionsController);
-//# sourceMappingURL=subscription.controller.js.map
+], WidgetController.prototype, "findBySubId", null);
+exports.WidgetController = WidgetController = __decorate([
+    (0, common_1.Controller)('posts'),
+    __metadata("design:paramtypes", [widget_service_1.WidgetService])
+], WidgetController);
+//# sourceMappingURL=widget.controller.js.map

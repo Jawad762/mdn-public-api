@@ -17,10 +17,6 @@ export class SubscriptionService {
       .where('subscription.hosts LIKE :host', { host: `%${host.split(':')[0]}%` })
       .getOne();
 
-      console.log(host)
-
-      console.log(fetchedHost)
-
     return fetchedHost.id
   }
 }

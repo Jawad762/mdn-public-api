@@ -13,6 +13,8 @@ const config_1 = require("@nestjs/config");
 const subscription_module_1 = require("./subscription/subscription.module");
 const subscription_middleware_1 = require("./subscription/subscription.middleware");
 const subscription_entity_1 = require("./subscription/subscription.entity");
+const widget_entity_1 = require("./widget/widget.entity");
+const widget_module_1 = require("./widget/widget.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -35,12 +37,12 @@ exports.AppModule = AppModule = __decorate([
                     username: process.env.DB_USER,
                     password: process.env.DB_PASSWORD,
                     database: process.env.DB_NAME,
-                    entities: [subscription_entity_1.Subscription],
+                    entities: [subscription_entity_1.Subscription, widget_entity_1.Widget],
                     options: { encrypt: false }
                 }),
                 inject: [config_1.ConfigService],
             }),
-            subscription_module_1.SubscriptionModule,
+            subscription_module_1.SubscriptionModule, widget_module_1.WidgetModule
         ],
     })
 ], AppModule);

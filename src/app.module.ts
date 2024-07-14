@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { SubscriptionMiddleware } from './subscription/subscription.middleware';
 import { Subscription } from './subscription/subscription.entity';
+import { Widget } from './widget/widget.entity';
+import { WidgetModule } from './widget/widget.module';
 
 @Module({
   imports: [
@@ -18,13 +20,13 @@ import { Subscription } from './subscription/subscription.entity';
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        entities: [Subscription],
+        entities: [Subscription, Widget],
         // synchronize: true,
         options: { encrypt: false }
       }),
       inject: [ConfigService],
     }),
-    SubscriptionModule,
+    SubscriptionModule, WidgetModule
   ],
 })
 export class AppModule implements NestModule {
