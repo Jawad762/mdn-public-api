@@ -1,3 +1,4 @@
+/// <reference types="cookie-parser" />
 import { WidgetService } from "./widget.service";
 import { Request, Response } from "express";
 export declare class WidgetController {
